@@ -15,6 +15,7 @@ jobs:
       - run:
           name: Run tests
           command: |
+            set -eo pipefail
             pytest --junitxml=junit.xml || ([ $? -eq 5 ] && echo 'Did not find any tests to run.')
       - store_test_results:
           path: junit.xml
@@ -26,7 +27,9 @@ jobs:
       - checkout
       - run:
           name: Deploy
-          command: ./deploy.sh  # Replace with actual deploy command
+          command: |
+            echo "Deploy step goes here"
+            # ./deploy.sh  # Uncomment and update with your real deployment script
 
 workflows:
   build-and-test:
