@@ -14,11 +14,11 @@ jobs:
           name: Run tests
           command: |
             set -o pipefail
-            pip install pytest
             pytest --junitxml=junit.xml
             code=$?
             if [ $code -eq 5 ]; then
               echo "No tests were found."
+              touch junit.xml  # create empty file to avoid error
               exit 0
             elif [ $code -ne 0 ]; then
               echo "Tests failed with exit code $code."
